@@ -1,4 +1,11 @@
-from typing import List
+from typing import List, Optional
+
+
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None 
+        
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         def eval_fast_pointer(fast_pointer):
@@ -14,10 +21,7 @@ class Solution:
             fast_pointer = fast_pointer.next.next
         return True 
     
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None    
+   
 
 
 
