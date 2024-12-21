@@ -64,6 +64,6 @@ class Solution:
         return head
 
 solution = Solution()
-root = solution.createTree([1,2,2,3,4,4,3, 2])
+root = solution.createTree([1,2,2,3,4,4,3])
 print(solution.isSymmetric(root))
 print(solution.recursive_isSymmetric(root))
