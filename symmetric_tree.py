@@ -5,6 +5,21 @@ class TreeNode:
         self.left = left
         self.right = right
 class Solution:
+
+    def recursive_isSymmetric(self, root):
+        if not None:
+            return True
+        if Solution.find_recurssive(root.left, root.right):
+            return True
+        return False
+    
+    def find_recurssive(left, right):
+        if left == right == None :
+            return True
+        if left == None or right == None:
+            return False
+        return left.val == right.val and Solution.find_recurssively(left.left, right.right) and Solution.find_recurssively(left.right, right.left)
+
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if root == None:
             return True
@@ -49,5 +64,6 @@ class Solution:
         return head
 
 solution = Solution()
-root = solution.createTree([1,2,2,3,4,4,3])
+root = solution.createTree([1,2,2,3,4,4,3, 2])
 print(solution.isSymmetric(root))
+print(solution.recursive_isSymmetric(root))
