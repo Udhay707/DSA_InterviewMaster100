@@ -25,3 +25,4 @@ replay_pid*
 
 .vscode/**
 *.mod
+__pycache__/BinaryTree.cpython-312.pyc
