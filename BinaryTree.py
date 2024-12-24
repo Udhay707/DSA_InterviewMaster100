@@ -11,7 +11,7 @@ class BinaryTree:
         head = TreeNode(array.pop(0))
         queue=[head]
         while(len(array)>0 and len(queue)>0):
-            pointer = queue.pop()
+            pointer = queue.pop(0)
             if pointer == None:
                 continue
             left = TreeNode(array.pop(0)) if array[0] != None else array.pop(0)
@@ -19,7 +19,7 @@ class BinaryTree:
                 right = None
             else:
                 right = TreeNode(array.pop(0)) if array[0] != None else array.pop(0)
-            queue.extend([right, left])
+            queue.extend([left, right])
             pointer.left = left
             pointer.right = right
         
