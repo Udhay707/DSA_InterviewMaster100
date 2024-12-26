@@ -4,6 +4,31 @@ class TreeNode:
         self.left = left
         self.right = right
 
+class Node():
+    def __init__(self, treeNode = None, next = None):
+        if treeNode:
+            self.val = treeNode.val
+            self.left= treeNode.left
+            self.right = treeNode.right
+            self.next = next
+    def  create_node_from_binary_Tree(self, root):
+        if not root: 
+            return root
+        root = Node(root)
+        queue = [root]    
+        while(len(queue) != 0):
+            for i in range(len(queue)):
+                element = queue.pop(0)
+                if element == None:
+                    continue
+                if element.left:
+                    element.left = Node(element.left)
+                    queue.append(element.left)
+                if element.right:
+                    element.right = Node(element.right)
+                    queue.append(element.right)
+        return root            
+
 class BinaryTree:
     def create_tree_from_array(self, array):
         if len(array)==0:
