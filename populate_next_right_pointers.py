@@ -21,9 +21,25 @@ class Solution:
                     queue.append(element.right)
                  
         return root
+    
+    def connect_01_space(self, node):
+        leftMost = node
+        while(leftMost):
+            current = leftMost
+            while(current):
+                if current.left:
+                    current.left.next = current.right
+                if current.right and current.next:
+                    current.right.next = current.next.left   
+                current = current.next    
+            leftMost = leftMost.left
+        return node    
+
+
 
 
 solution = Solution()
-root = BinaryTree().create_tree_from_array([1,2,3,4,5,6,7])
+root = BinaryTree().create_tree_from_array([-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13])
 root = Node().create_node_from_binary_Tree(root)
-solution.connect(root)
+sol1 = solution.connect(root)
+sol2 = solution.connect_01_space(root)
