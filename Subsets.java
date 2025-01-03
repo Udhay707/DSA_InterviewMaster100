@@ -1,26 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Subsets {
     public List<List<Integer>> subsets(int[] nums) {
-        return backtrack(nums, new ArrayList<>(), 0);
+        List<List<Integer>> returnList = new ArrayList<>();
+        backtrack(nums, new ArrayList<>(), 0, returnList);
+        return returnList;
         
     }
 
-    private List<List<Integer>> backtrack(int nums[], List<Integer> selected, int selectedCount){
-        List<List<Integer>> returnList = new ArrayList<>();
+    private void backtrack(int nums[], List<Integer> selected, int selectedCount, List<List<Integer>> returnList){
         if(selectedCount == nums.length){
             returnList.add(new ArrayList<>(selected));
-            return returnList;
+            return;
         }
-        returnList.addAll(backtrack(nums, selected, selectedCount+1));
+        backtrack(nums, selected, selectedCount+1, returnList);
         selected.add(nums[selectedCount]);
-        returnList.addAll(backtrack(nums, selected, selectedCount+1));
-        if(selected.size()>0)
-            selected.remove(selected.size()-1);
-        return returnList;
-
+        backtrack(nums, selected, selectedCount+1, returnList);
+        selected.remove(selected.size()-1);
     }
 
     public static void main(String[] args) {
