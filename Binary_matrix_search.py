@@ -4,6 +4,7 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         start = 0
         end = len(matrix[0])-1
+        #can be better optimized by fixing the row using binary search, using the same logic on row
         for i in range(0, len(matrix)):
             if(matrix[i][start] == target or matrix[i][end] == target):
                 return True
