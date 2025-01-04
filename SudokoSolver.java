@@ -1,35 +1,28 @@
-import java.util.HashMap;
+
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class SudokoSolver {
     public boolean isValidSudoku(char[][] board) {
-        Map<Integer, Set<Character>> rowMap = new HashMap<>();
-        Map<Integer, Set<Character>> colMap = new HashMap<>();
-        Map<Integer, Set<Character>> squareMap = new HashMap<>();
-        for(int i=0; i<9; i++){
-            rowMap.put(i, new HashSet<>());
-            colMap.put(i, new HashSet<>());
-            squareMap.put(i, new HashSet<>());
-        }
-        int[] squareTracker = {0, 3,6};
+        Set<String> set = new HashSet<>();
+        String row = "row";
+        String col = "col";
+        String square = "square";
+        String valueSeparator = "|";
         for(int i=0; i<board.length; i++){
-            int startSquare = squareTracker[i/3];
             for(int j=0; j<board.length; j++){
                 if(board[i][j] == '.')
                     continue;
 
-                var rowSet = rowMap.get(i);
-                if(!rowSet.add(board[i][j]))
+                String rowVal = row + i + valueSeparator + board[i][j];
+                if(!set.add(rowVal))
                     return false;
             
-                var colSet = colMap.get(j);
-                if(!colSet.add(board[i][j]))
+                String colVal = col + j + valueSeparator + board[i][j];
+                if(!set.add(colVal))
                     return false;
-                
-                var squareSet = squareMap.get(startSquare + (j/3));
-                if(!squareSet.add(board[i][j]))
+                String squareVal = square + i/3 + "" +j/3 + valueSeparator + board[i][j];
+                if(!set.add(squareVal))
                     return false;
                 
             }
@@ -39,7 +32,7 @@ public class SudokoSolver {
 
     public static void main(String[] args) {
         char [][]board = new char[][] {
-            {'8','3','.','.','7','.','.','.','.'}
+         {'5','3','.','.','7','.','.','.','.'}
         ,{'6','.','.','1','9','5','.','.','.'}
         ,{'.','9','8','.','.','.','.','6','.'}
         ,{'8','.','.','.','6','.','.','.','3'}
