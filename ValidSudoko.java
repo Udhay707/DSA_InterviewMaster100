@@ -2,7 +2,7 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class SudokoSolver {
+public class ValidSudoko {
     public boolean isValidSudoku(char[][] board) {
         Set<String> set = new HashSet<>();
         String row = "row";
@@ -42,7 +42,7 @@ public class SudokoSolver {
         ,{'.','.','.','4','1','9','.','.','5'}
         ,{'.','.','.','.','8','.','.','7','9'}};
 
-        SudokoSolver sudokoSolver = new SudokoSolver();
+        ValidSudoko sudokoSolver = new ValidSudoko();
         boolean isValid = sudokoSolver.isValidSudoku(board);
         System.out.println(isValid);
         
