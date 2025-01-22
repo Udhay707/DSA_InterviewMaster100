@@ -1,74 +1,80 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class MinHeap {
     private List<Integer> heap;
     
-    public void insert(Integer number){
-        insert(number, heap.size()-1);
+    public MinHeap(){
+        heap = new ArrayList<>();
     }
-
-    private void insert(Integer number, int index){
-        heap.add(number);
-        if(number > heap.get(index/2)){
-            heap.add(number);
-        }
-        swap(heap, index, parent(index));
-    }
-
-    private void swap(List<Integer> list, int index1, int index2){
-        int temp = list.get(index1);
-        list.set(list.get(index2), index1);
-        list.set(temp, index2);
-    }
-
-    public boolean delete(int number){
-        var index = findIndex(number, 0);
-        if(index < 0){
-            return false;
-        }
-        heap.set(index, Integer.MAX_VALUE);
-        moveUp(number, index);
-        return true;
-    }
-
-    private void moveUp(int number, int index){
-        int left = Integer.MAX_VALUE;
-        int right = Integer.MAX_VALUE;
-        if(left(index) < heap.size()){
-            left = heap.get(left(index));
-        }
-        if(right(index) < heap.)
-    }
-
-
-
-    private Integer findIndex(int number, int index){
-        if(heap.get(index)>number){
-            return -1;
-        }
-        if(heap.get(index) == number){
-            return number;
-        }
-        int left = -1;
-        int right = -1;
-        if(left(index) < heap.size())
-            left = findIndex(number, left(index));
-        if(right(index) < heap.size())    
-            right = findIndex(number, right(index));
-        return left > right ? left : right;
-    }
-
+    
     private int parent(int index){
-        return (index-1)/2;
+        return (index-1) /2;
     }
 
-    private int left(int index){
-        return index*2 + 1;
+    private int leftChild(int index){
+        int left = index*2 + 1;
+        if(left < heap.size()){
+            return left;
+        }
+        return -1;
     }
 
-    private int right(int index){
-        return index*2;
+    private int rightChild(int index){
+        int right = index*2 + 2;
+        if(right < heap.size()){
+            return right;
+        }
+        return -1;
     }
 
+    public void insert(int number){
+        heap.add(number);
+        checkAndSwap(heap.size()-1);
+    }
+
+    private void checkAndSwap(int index){
+        int parentIndex = parent(index);
+        while(parentIndex >=0 && heap.get(index) < heap.get(parentIndex)){
+            swap(index, parentIndex);
+            index = parentIndex;
+            parentIndex = parent(index);
+        }
+    }
+
+    private void swap(int index1, int index2){
+        int num = heap.get(index1);
+        heap.set(index1, heap.get(index2));
+        heap.set(index2, num);
+    }
+
+    public void remove(int index){
+        swap(index, heap.size()-1);
+        heap.remove(heap.size()-1);
+
+        while((leftChild(index)!= -1 && heap.get(index) > heap.get(leftChild(index))) || 
+            (rightChild(index)!=-1 && heap.get(index) > heap.get(rightChild(index)))){
+            int smallerIndex = rightChild(index) != - 1 && heap.get(leftChild(index)) < heap.get(rightChild(index)) 
+                                            ? leftChild(index) : rightChild(index);
+            swap(index, smallerIndex);
+            index = smallerIndex;
+        }
+    }
+
+    public String toString(){
+        return heap.toString();
+    }
+
+    public static void main(String[] args) {
+        MinHeap minHeap = new MinHeap();
+        minHeap.insert(10);
+        minHeap.insert(7);
+        minHeap.insert(9);
+        System.out.println(minHeap);
+        minHeap.insert(5);
+        System.out.println(minHeap);
+        minHeap.remove(2);
+        System.out.println(minHeap);
+    }
 
 }
